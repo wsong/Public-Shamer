@@ -1,23 +1,21 @@
 #!/usr/bin/python
 
-from xml.dom import minidom
-from urllib import urlopen
-from time import sleep
+import web
 
-RETRIES = 5
+APP_ID = ""
+REDIRECT_URI = ""
+OAUTH_DIALOG_URL = "https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s&scope=publish_stream" % (APP_ID, REDIRECT_URI)
 
-def get_xml(u):
-    for i in range(RETRIES):
-        try:
-            return minidom.parse(urlopen(u))
-        except IOError:
-            print "Connection to last.fm failed."
-        sleep(1)
+urls = (
+    '/', 'index'
+    )
 
-def getWeeklyPlayCount(user, api_key):
-    url = 'http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=%s&api_key=%s&period=7day' % (user, api_key)
-    tracks = get_xml(url).getElementsByTagName("track")
-    total = 0
-    for node in tracks:
-        total += int(node.getElementsByTagName("playcount")[0].firstChild.nodeValue)
-    return total
+app = web.application(urls, globals())
+render = web.template.render('templates/')
+
+class index:
+    def GET(self):
+        return render.index(AUTH_URL)
+
+if __name__ == "__main__":
+    app.run()
