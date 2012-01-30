@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import web
+import urllib
 import urllib2
 import urlparse
 
@@ -26,7 +27,7 @@ class index:
             response = urllib2.urlopen(access_url).read()
             response_dict = urlparse.parse_qs(response)
             access_token = response_dict['access_token'][0]
-            open(".access_token", w).write(access_token)
+            open(".access_token", "w").write(access_token)
             return render.index("")
         else:
             return render.index(OAUTH_DIALOG_URL)
