@@ -2,6 +2,9 @@ $def with (oauth_dialog_url)
 
 <html>
 <body>
-<a href="$oauth_dialog_url">Log in to Facebook</a>
+$if oauth_dialog_url:
+    <a href="$oauth_dialog_url">Log in to Facebook</a>
+$else:
+    Congratulations, you've authenticated with Facebook!
 </body>
 </html>
