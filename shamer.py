@@ -25,7 +25,7 @@ class index:
                                      access_token)
             return render.index("")
         else:
-            return render.index(OAUTH_DIALOG_URL)
+            return render.index(fbgraph.OAUTH_DIALOG_URL)
             
 
 if __name__ == "__main__":

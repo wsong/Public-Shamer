@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import json
 import urllib
 import urllib2
 import urlparse
@@ -27,4 +28,4 @@ def get_current_user_info(access_token):
     args = urllib.urlencode({"access_token": access_token})
     current_user_url = CURRENT_USER_URL + args
     response = urllib2.urlopen(current_user_url).read()
-    return urlparse.parse_qs(response)
+    return json.loads(response)
