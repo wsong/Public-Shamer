@@ -1,15 +1,7 @@
 #!/usr/bin/python
 
 import web
-import urllib
-import urllib2
-import urlparse
-
-APP_ID = ""
-REDIRECT_URI = ""
-APP_SECRET = ""
-OAUTH_DIALOG_URL = "https://www.facebook.com/dialog/oauth?" + urllib.urlencode({"client_id": APP_ID, "redirect_uri": REDIRECT_URI, "scope": "publish_stream,offline_access"})
-ACCESS_TOKEN_URL = "https://graph.facebook.com/oauth/access_token?"
+import fbgraph
 
 urls = (
     '/', 'index'
@@ -22,11 +14,8 @@ class index:
     def GET(self):
         i = web.input(code=None)
         if i.code:
-            args = urllib.urlencode({"client_id": APP_ID, "redirect_uri": REDIRECT_URI, "client_secret": APP_SECRET, "code": i.code})
-            access_url = ACCESS_TOKEN_URL + args
-            response = urllib2.urlopen(access_url).read()
-            response_dict = urlparse.parse_qs(response)
-            access_token = response_dict['access_token'][0]
+            access_token = fbgraph.get_access_token(i.code)
+            print fbgraph.get_current_user_info(access_token)
             open(".access_token", "w").write(access_token)
             return render.index("")
         else:
