@@ -14,6 +14,7 @@ def database_init():
         conn.commit()
 
 def get_user_by_row_id(user_id):
+    conn = sqlite3.connect(DATABASE_NAME)
     with conn:
         cur = conn.cursor()
         cur.execute("select * from Users where Id=?", (user_id,))
@@ -21,6 +22,7 @@ def get_user_by_row_id(user_id):
         return row
 
 def get_user_by_fb_id(fb_id):
+    conn = sqlite3.connect(DATABASE_NAME)
     with conn:
         cur = conn.cursor()
         cur.execute("select * from Users where Facebook_Id=?", (fb_id,))
@@ -28,6 +30,7 @@ def get_user_by_fb_id(fb_id):
         return row
 
 def create_user(fb_id, full_name, first_name, last_name, access_token):
+    conn = sqlite3.connect(DATABASE_NAME)
     with conn:
         cur = conn.cursor()
         values = (fb_id, full_name, first_name, last_name, access_token)

@@ -18,10 +18,10 @@ class index:
             access_token = fbgraph.get_access_token(i.code)
             user_dict = fbgraph.get_current_user_info(access_token)
             if not shamerdb.get_user_by_fb_id(user_dict["id"][0]):
-                shamerdb.create_user(user_dict["id"][0],
-                                     user_dict["name"][0],
-                                     user_dict["first_name"][0],
-                                     user_dict["last_name"][0],
+                shamerdb.create_user(user_dict["id"],
+                                     user_dict["name"],
+                                     user_dict["first_name"],
+                                     user_dict["last_name"],
                                      access_token)
             return render.index("")
         else:
