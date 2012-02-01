@@ -1,10 +1,25 @@
 $def with (oauth_dialog_url)
 
 <html>
+<head>
+<title>Electric Shamer | Bettering People Through Public Humiliation</title>
+</head>
 <body>
+
+<h1><p align="center" style="font-family: sans-serif">
+Electric Shamer
+</p></h1>
+
+<h2><p align="center" style="font-family: sans-serif">
+a.k.a. <br/>
+Master Berater
+</p></h2>
+
+<p align="center" style="font-family: sans-serif">
 $if oauth_dialog_url:
     <a href="$oauth_dialog_url">Log in to Facebook</a>
 $else:
     Congratulations, you've authenticated with Facebook!
+</p>
 </body>
 </html>
