@@ -23,9 +23,9 @@ class index:
                                      user_dict["first_name"],
                                      user_dict["last_name"],
                                      access_token)
-            return render.index("")
+            return render.index(None, user_dict["first_name"])
         else:
-            return render.index(fbgraph.OAUTH_DIALOG_URL)
+            return render.index(fbgraph.OAUTH_DIALOG_URL, None)
             
 
 if __name__ == "__main__":
