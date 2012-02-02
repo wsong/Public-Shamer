@@ -36,12 +36,12 @@ class change_options:
         if not i.fb_id:
             raise web.seeother('/')
         if i.deleteinfo:
-            shamerdb.delete_user_by_fb_id(fb_id)
+            shamerdb.delete_user_by_fb_id(i.fb_id)
             raise web.seeother('/')
         if i.lastfmcheckbox == "True":
-            shamerdb.set_user_last_fm_pref(fb_id, True)
+            shamerdb.set_user_last_fm_pref(i.fb_id, True)
         else:
-            shamerdb.set_user_last_fm_pref(fb_id, False)
+            shamerdb.set_user_last_fm_pref(i.fb_id, False)
         if i.dayofweek != None and i.hour != None:
             d = None
             h = None
@@ -51,7 +51,7 @@ class change_options:
             except ValueError:
                 raise web.seeother('/')
             if 0 <= d and d <= 6 and 0 <= h and h <= 23:
-                shamerdb.set_user_reminder_time(fb_id, d, h)
+                shamerdb.set_user_reminder_time(i.fb_id, d, h)
             else:
                 raise web.seeother('/')                
         return render.optionsset()
