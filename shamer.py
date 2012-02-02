@@ -18,7 +18,7 @@ class index:
         if i.code:
             access_token = fbgraph.get_access_token(i.code)
             user_dict = fbgraph.get_current_user_info(access_token)
-            if not shamerdb.get_user_by_fb_id(user_dict["id"][0]):
+            if not shamerdb.get_user_by_fb_id(user_dict["id"]):
                 shamerdb.create_user(user_dict["id"],
                                      user_dict["name"],
                                      user_dict["first_name"],
@@ -30,7 +30,6 @@ class index:
 
 class change_options:
     def POST(self):
-        print "yay"
         i = web.input(fb_id=None, lastfmcheckbox=None, dayofweek=None,
                       hour=None, deleteinfo=None)
         if not i.fb_id:
