@@ -27,7 +27,11 @@ class index:
                                      access_token)
             return render.index(None, user_dict["id"], user_dict["first_name"])
         else:
-            return render.index(constants.FB_OAUTH_DIALOG_URL, None, None)
+             auth_url = constants.FB_OAUTH_DIALOG_URL + urllib.urlencode(
+                 {"client_id": constants.FB_APP_ID,
+                  "redirect_uri": constants.FB_REDIRECT_URI,
+                  "scope": "publish_stream,offline_access"})
+            return render.index(auth_url, None, None)
 
 class change_options:
     def POST(self):
