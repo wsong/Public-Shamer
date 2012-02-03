@@ -69,6 +69,7 @@ class change_options:
         if not i.fb_id:
             raise web.seeother('/')
         if i.deleteinfo:
+            web.setcookie("fb_code", None)
             cronjobs.remove_cron_jobs(i.fb_id)
             shamerdb.delete_user_by_fb_id(i.fb_id)
             raise web.seeother('/')
