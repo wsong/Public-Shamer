@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
-import web
+import constants
 import fbgraph
 import shamerdb
+import web
 
 urls = (
     '/', 'index',
@@ -26,7 +27,7 @@ class index:
                                      access_token)
             return render.index(None, user_dict["id"], user_dict["first_name"])
         else:
-            return render.index(fbgraph.OAUTH_DIALOG_URL, None, None)
+            return render.index(constants.FB_OAUTH_DIALOG_URL, None, None)
 
 class change_options:
     def POST(self):
