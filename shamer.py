@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import constants
+import cronjobs
 import fbgraph
 import shamerdb
 import urllib
@@ -55,10 +56,11 @@ class change_options:
                 shamerdb.set_user_reminder_time(i.fb_id, d, h)
             else:
                 raise web.seeother('/')
-        if i.lastfmcheckbox == "True" and lastfmusername:
-            shamerdb.set_user_last_fm_pref(i.fb_id, True, lastfmusername)
+        if i.lastfmcheckbox == "True" and i.lastfmusername:
+            shamerdb.set_user_last_fm_pref(i.fb_id, True, i.lastfmusername)
             if d and h:
-                cronjobs.add_cron_job(fb_id, d, h, lastfmusername, "last.fm")
+                cronjobs.add_cron_job(i.fb_id, d, h,
+                                      i.lastfmusername, "last.fm")
         else:
             shamerdb.set_user_last_fm_pref(i.fb_id, False, "")
         return render.optionsset()
