@@ -31,8 +31,9 @@ class index:
                                     fb_first_name=user_dict["first_name"])
             else:
                 user_row = shamerdb.get_user_by_fb_id(user_dict["id"])
-                dayofweek_menu = web.form.Dropdown(name="dayofweek", args=[(0,"Sunday"), (1,"Monday"), (2,"Tuesday"), (3,"Wednesday"), (4,"Thursday"), (5,"Friday"), (6,"Saturday")], value=user_row["Reminder_Time_Day_Of_Week"]).render()
-                hour_menu = web.form.Dropdown(name="hour", args=[(0, '12:00am'), (1, '1:00am'), (2, '2:00am'), (3, '3:00am'), (4, '4:00am'), (5, '5:00am'), (6, '6:00am'), (7, '7:00am'), (8, '8:00am'), (9, '9:00am'), (10, '10:00am'), (11, '11:00am'), (12, '12:00pm'), (13, '1:00pm'), (14, '2:00pm'), (15, '3:00pm'), (16, '4:00pm'), (17, '5:00pm'), (18, '6:00pm'), (19, '7:00pm'), (20, '8:00pm'), (21, '9:00pm'), (22, '10:00pm'), (23, '11:00pm')], value=user_row["Reminder_Time_Hour"]).render()
+                dayofweek_menu = get_day_of_week_menu(
+                    user_row["Reminder_Time_Day_Of_Week"])
+                hour_menu = get_hour_menu(user_row["Reminder_Time_Hour"])
                 return render.index(fb_id=user_row["Facebook_Id"],
                                     fb_first_name=user_row["First_Name"],
                                     lastfm_pref=user_row["LastFm"],
@@ -75,7 +76,30 @@ class change_options:
         else:
             shamerdb.set_user_last_fm_pref(i.fb_id, False, "")
         return render.optionsset()
-            
+
+def get_day_of_week_menu(default_value):
+    return web.form.Dropdown(name="dayofweek",
+                             args=[(0,"Sunday"), (1,"Monday"), (2,"Tuesday"),
+                                   (3,"Wednesday"), (4,"Thursday"),
+                                   (5,"Friday"), (6,"Saturday")],
+                             value=default_value).render()
+
+def get_hour_menu(default_value):
+    return web.form.Dropdown(name="hour",
+                             args=[(0, '12:00am'), (1, '1:00am'),
+                                   (2, '2:00am'), (3, '3:00am'),
+                                   (4, '4:00am'), (5, '5:00am'),
+                                   (6, '6:00am'), (7, '7:00am'),
+                                   (8, '8:00am'), (9, '9:00am'),
+                                   (10, '10:00am'), (11, '11:00am'),
+                                   (12, '12:00pm'), (13, '1:00pm'),
+                                   (14, '2:00pm'), (15, '3:00pm'),
+                                   (16, '4:00pm'), (17, '5:00pm'),
+                                   (18, '6:00pm'), (19, '7:00pm'),
+                                   (20, '8:00pm'), (21, '9:00pm'),
+                                   (22, '10:00pm'), (23, '11:00pm')],
+                             value=default_value).render()
+    
 if __name__ == "__main__":
     shamerdb.database_init()
     app.run()
