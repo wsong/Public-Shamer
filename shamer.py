@@ -18,10 +18,12 @@ render = web.template.render('templates/')
 class index:
     def GET(self):
         i = web.input(code=None)
-        code = web.cookies().get("fb_code")
-        if not code and i.code:
+        code = None
+        if i.code:
             code = i.code
             web.setcookie("fb_code", i.code)
+        else:
+            code = web.cookies().get("fb_code")
         if code:
             access_token = fbgraph.get_access_token(code)
             user_dict = fbgraph.get_current_user_info(access_token)
