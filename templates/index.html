@@ -22,11 +22,12 @@ Master Berater
 </h3>
 
 $if oauth_dialog_url:
+    <p>Have you been meaning to listen to more music, but just haven't had the time?  Have you been meaning to run more, but you just haven't been able to find the motivation?  What if you had an app that posted on your Facebook wall (as yourself!) and publicly humiliated you until you did better?  Wonder no more.</p>
     <a href="$oauth_dialog_url">Log in to Facebook</a>
 $elif fb_first_name:
     <p>Hello, $fb_first_name!  Check off the options below to choose your beratement. </p>
     <form name="shamerinput" action="change_options/" method="post">
-    <p>Check off which services you'd like to improve on. </p>
+    <p>Check off which services you'd like to improve on. Currently, only last.fm is supported.</p>
     <p>Last.fm
       $if lastfm_pref:
           <input type="checkbox" name="lastfmcheckbox" value="True" checked/>
