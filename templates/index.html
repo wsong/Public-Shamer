@@ -1,4 +1,5 @@
-$def with (oauth_dialog_url, fb_id, fb_first_name)
+$def with (oauth_dialog_url=None, fb_id=None, fb_first_name=None, 
+lastfm_pref=None, lastfm_username=None, dayofweek_menu=None, hour_menu=None)
 
 <html>
 <head>
@@ -22,44 +23,15 @@ $elif fb_first_name:
     <p>Hello, $fb_first_name!  Check off the options below to choose your beratement. </p>
     <form name="shamerinput" action="change_options/" method="post">
     <p>Check off which services you'd like to improve on. </p>
-    <p>Last.fm <input type="checkbox" name="lastfmcheckbox" value="True"/>
-      <input type="text" name="lastfmusername" /> </p>
+    <p>Last.fm
+      $if lastfm_pref:
+          <input type="checkbox" name="lastfmcheckbox" value="True" checked/>
+      $else:
+          <input type="checkbox" name="lastfmcheckbox" value="True" checked/>
+      <input type="text" name="lastfmusername" value="$lastfm_username"/> </p>
     <p>Enter what time each week you'd like your beratement to arrive. </p>
-    <select name="dayofweek">
-      <option value="0">Sunday</option>
-      <option value="1">Monday</option>
-      <option value="2">Tuesday</option>
-      <option value="3">Wednesday</option>
-      <option value="4">Thursday</option>
-      <option value="5">Friday</option>
-      <option value="6">Saturday</option>
-    </select>
-    <select name="hour">
-      <option value="0">12:00am</option>
-      <option value="1">1:00am</option>
-      <option value="2">2:00am</option>
-      <option value="3">3:00am</option>
-      <option value="4">4:00am</option>
-      <option value="5">5:00am</option>
-      <option value="6">6:00am</option>
-      <option value="7">7:00am</option>
-      <option value="8">8:00am</option>
-      <option value="9">9:00am</option>
-      <option value="10">10:00am</option>
-      <option value="11">11:00am</option>
-      <option value="12">12:00pm</option>
-      <option value="13">1:00pm</option>
-      <option value="14">2:00pm</option>
-      <option value="15">3:00pm</option>
-      <option value="16">4:00pm</option>
-      <option value="17">5:00pm</option>
-      <option value="18">6:00pm</option>
-      <option value="19">7:00pm</option>
-      <option value="20">8:00pm</option>
-      <option value="21">9:00pm</option>
-      <option value="22">10:00pm</option>
-      <option value="23">11:00pm</option>
-    </select>
+    $dayofweek_menu
+    $hour_menu
     <p>Get rid of my personal information, you power-hungry tyrant!
       <input type="checkbox" name="deleteinfo" value="True"/> </p>
     <p><input type="submit" value="Submit" /></p>

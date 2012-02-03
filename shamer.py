@@ -27,13 +27,24 @@ class index:
                                      user_dict["first_name"],
                                      user_dict["last_name"],
                                      access_token)
-            return render.index(None, user_dict["id"], user_dict["first_name"])
+                return render.index(fb_id=user_dict["id"],
+                                    fb_first_name=user_dict["first_name"])
+            else:
+                user_row = shamerdb.get_user_by_fb_id(user_dict["id"])
+                dayofweek_menu = web.form.Dropdown(name="dayofweek", args=[(0,"Sunday"), (1,"Monday"), (2,"Tuesday"), (3,"Wednesday"), (4,"Thursday"), (5,"Friday"), (6,"Saturday")], value=user_row["Reminder_Time_Day_Of_Week"]).render()
+                hour_menu = web.form.Dropdown(name="hour", args=[(0, '12:00am'), (1, '1:00am'), (2, '2:00am'), (3, '3:00am'), (4, '4:00am'), (5, '5:00am'), (6, '6:00am'), (7, '7:00am'), (8, '8:00am'), (9, '9:00am'), (10, '10:00am'), (11, '11:00am'), (12, '12:00pm'), (13, '1:00pm'), (14, '2:00pm'), (15, '3:00pm'), (16, '4:00pm'), (17, '5:00pm'), (18, '6:00pm'), (19, '7:00pm'), (20, '8:00pm'), (21, '9:00pm'), (22, '10:00pm'), (23, '11:00pm')], value=user_row["Reminder_Time_Hour"]).render()
+                return render.index(fb_id=user_row["Facebook_Id"],
+                                    fb_first_name=user_row["First_Name"],
+                                    lastfm_pref=user_row["LastFm"],
+                                    lastfm_username=user_row["LastFm_Username"],
+                                    dayofweek_menu=dayofweek_menu
+                                    hour_menu=hour_menu)
         else:
             auth_url = constants.FB_OAUTH_DIALOG_URL + urllib.urlencode(
                  {"client_id": constants.FB_APP_ID,
                   "redirect_uri": constants.FB_REDIRECT_URI,
                   "scope": "publish_stream,offline_access"})
-            return render.index(auth_url, None, None)
+            return render.index(oauth_dialog_url=auth_url)
 
 class change_options:
     def POST(self):
