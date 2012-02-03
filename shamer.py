@@ -3,6 +3,7 @@
 import constants
 import fbgraph
 import shamerdb
+import urllib
 import web
 
 urls = (
@@ -27,7 +28,7 @@ class index:
                                      access_token)
             return render.index(None, user_dict["id"], user_dict["first_name"])
         else:
-             auth_url = constants.FB_OAUTH_DIALOG_URL + urllib.urlencode(
+            auth_url = constants.FB_OAUTH_DIALOG_URL + urllib.urlencode(
                  {"client_id": constants.FB_APP_ID,
                   "redirect_uri": constants.FB_REDIRECT_URI,
                   "scope": "publish_stream,offline_access"})

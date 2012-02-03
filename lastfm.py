@@ -16,7 +16,7 @@ def get_xml(u):
         time.sleep(1)
 
 def get_lastfm_weekly_playcount(user):
-    url = 'http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=%s&api_key=%s&period=7day' % (user, constants.API_KEY)
+    url = 'http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=%s&api_key=%s&period=7day' % (user, constants.LASTFM_API_KEY)
     tracks = get_xml(url).getElementsByTagName("track")
     total = 0
     for node in tracks:
@@ -31,6 +31,6 @@ def get_weekly_evaluation(count):
     elif count <= 40:
         return "I listened to %d songs this week, which is so close to being a good length of music (unless it's %d Dream Theater songs, in which case I guess I listened to like %d hours of music)." % (count, count, count*3)
     elif count <= 70:
-        return "I listened to %d songs this week; sounds like I had a good time (oh no my social life D:)." % (count).
+        return "I listened to %d songs this week; sounds like I had a good time (oh no my social life D:)." % (count)
     else:
         return "On the downside, I was never able to take my headphones out this week.  On the upside, I listened to %d songs." % (count)

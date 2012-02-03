@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import fbgraph
 import lastfm
 import subprocess
 import sys
@@ -17,17 +18,17 @@ def add_lastfm_cron_job(day_of_week, hour, lastfm_username):
         f.write(s)
     subprocess.call(["crontab", CRONTAB_FILE])
     
-if __name__ = "__main__":
+if __name__ == "__main__":
     # Usage: cronjobs facebook_id username service
     # facebook_id is the user's facebook ID
     # username is their username for their chosen service (e.g. last.fm)
     # service is the name of a service (again, like "last.fm")
     if len(sys.argv) != 4:
         print "Usage: cronjobs facebook_id username service"
-        return
+        sys.exit(1)
     if sys.argv[3] not in services:
         print "Service " + sys.argv[3] + " not supported."
-        return
-    if method == "last.fm":
-        playcount = lastfm.get(get_lastfm_weekly_playcount(sys.argv[2]))
-        post_to_user_feed(sys.argv[1], lastfm.get_weekly_evaluation(playcount))
+        sys.exit(1)
+    if sys.argv[3] == "last.fm":
+        playcount = lastfm.get_lastfm_weekly_playcount(sys.argv[2])
+        fbgraph.post_to_user_feed(sys.argv[1], lastfm.get_weekly_evaluation(playcount))

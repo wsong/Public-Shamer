@@ -2,6 +2,7 @@
 
 import constants
 import json
+import shamerdb
 import urllib
 import urllib2
 import urlparse
@@ -27,7 +28,7 @@ def get_current_user_info(access_token):
     return json.loads(response)
 
 def post_to_user_feed(fb_id, message):
-    user_row = get_user_by_fb_id(fb_id)
+    user_row = shamerdb.get_user_by_fb_id(fb_id)
     if not user_row:
         return
     access_token = user_row["Access_Token"]
