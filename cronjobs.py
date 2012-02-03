@@ -11,6 +11,28 @@ commands = {"last.fm": "python /home/ec2-user/Public-Shamer/cronjobs.py"}
 
 services = ["last.fm"]
 
+class CrontabLine:
+    def __init__(self, line=None, hour=None, dayofweek=None, command=None,
+                 fb_id=None, username=None, service=None):
+        if line:
+            fields = line.split(" ")
+            self.hour = int(line[1])
+            self.dayofweek = int(line[4])
+            self.command = " ".join(line[5:-3])
+            self.fb_id = line[-3]
+            self.username = line[-2]
+            self.service = line[-1]
+        else:
+            self.hour = int(hour)
+            self.dayofweek = int(dayofweek)
+            self.command = command
+            self.fb_id = fb_id
+            self.username = username
+            self.service = service
+    def __repr__():
+        return "* %d * * %d %s %s %s %s" % (hour, dayofweek, command, fb_id,
+                                            username, service)
+
 def add_cron_job(fb_id, day_of_week, hour, username, service):
     if service not in commands:
         return
@@ -20,11 +42,24 @@ def add_cron_job(fb_id, day_of_week, hour, username, service):
         return
     if not re.match("^[0-9a-zA-Z_]*$", username):
         return
-    command = commands[service] + " %s %s %s" % (fb_id, username, service)
-    s = "* %d * * %d %s\n" % (hour, day_of_week, command)
+    line = CrontabLine(hour=hour, dayofweek=day_of_week,
+                       command=commands[service], fb_id=fb_id,
+                       username=username, service=service)
     with open(CRONTAB_FILE, "a") as f:
-        f.write(s)
+        f.write(repr(line))
     subprocess.call(["crontab", CRONTAB_FILE])
+
+def remove_cron_jobs(fb_id):
+    if not re.match("^[0-9]*$", fb_id):
+        return
+    with open(CRONTAB_FILE, "r+") as f:
+        lines = f.readlines()
+        final_lines = []
+        for l in lines:
+            c_line = CrontabLine(line=l)
+            if c_line.fb_id != fb_id:
+                final_lines.append(l)
+        f.write("".join(lines))
     
 if __name__ == "__main__":
     # Usage: cronjobs facebook_id username service
