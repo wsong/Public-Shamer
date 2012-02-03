@@ -27,6 +27,12 @@ class index:
         if code:
             access_token = fbgraph.get_access_token(code)
             user_dict = fbgraph.get_current_user_info(access_token)
+            if error in user_dict:
+                auth_url = constants.FB_OAUTH_DIALOG_URL + urllib.urlencode(
+                 {"client_id": constants.FB_APP_ID,
+                  "redirect_uri": constants.FB_REDIRECT_URI,
+                  "scope": "publish_stream,offline_access"})
+                return render.index(oauth_dialog_url=auth_url)
             if not shamerdb.get_user_by_fb_id(user_dict["id"]):
                 shamerdb.create_user(user_dict["id"],
                                      user_dict["name"],
