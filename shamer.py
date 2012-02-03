@@ -27,7 +27,7 @@ class index:
         if code:
             access_token = fbgraph.get_access_token(code)
             user_dict = fbgraph.get_current_user_info(access_token)
-            if error in user_dict:
+            if "error" in user_dict:
                 auth_url = constants.FB_OAUTH_DIALOG_URL + urllib.urlencode(
                  {"client_id": constants.FB_APP_ID,
                   "redirect_uri": constants.FB_REDIRECT_URI,
