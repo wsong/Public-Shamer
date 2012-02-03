@@ -36,20 +36,16 @@ class index:
 
 class change_options:
     def POST(self):
-        i = web.input(fb_id=None, lastfmcheckbox=None, dayofweek=None,
+        i = web.input(fb_id=None, lastfmcheckbox=None,
+                      lastfmusername=None, dayofweek=None,
                       hour=None, deleteinfo=None)
         if not i.fb_id:
             raise web.seeother('/')
         if i.deleteinfo:
             shamerdb.delete_user_by_fb_id(i.fb_id)
             raise web.seeother('/')
-        if i.lastfmcheckbox == "True":
-            shamerdb.set_user_last_fm_pref(i.fb_id, True)
-        else:
-            shamerdb.set_user_last_fm_pref(i.fb_id, False)
+        d, h = None, None
         if i.dayofweek != None and i.hour != None:
-            d = None
-            h = None
             try:
                 d = int(i.dayofweek)
                 h = int(i.hour)
@@ -58,7 +54,13 @@ class change_options:
             if 0 <= d and d <= 6 and 0 <= h and h <= 23:
                 shamerdb.set_user_reminder_time(i.fb_id, d, h)
             else:
-                raise web.seeother('/')                
+                raise web.seeother('/')
+        if i.lastfmcheckbox == "True" and lastfmusername:
+            shamerdb.set_user_last_fm_pref(i.fb_id, True, lastfmusername)
+            if d and h:
+                cronjobs.add_cron_job(fb_id, d, h, lastfmusername, "last.fm")
+        else:
+            shamerdb.set_user_last_fm_pref(i.fb_id, False, "")
         return render.optionsset()
             
 if __name__ == "__main__":
