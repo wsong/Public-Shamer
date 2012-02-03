@@ -38,7 +38,7 @@ class index:
                                     fb_first_name=user_row["First_Name"],
                                     lastfm_pref=user_row["LastFm"],
                                     lastfm_username=user_row["LastFm_Username"],
-                                    dayofweek_menu=dayofweek_menu
+                                    dayofweek_menu=dayofweek_menu,
                                     hour_menu=hour_menu)
         else:
             auth_url = constants.FB_OAUTH_DIALOG_URL + urllib.urlencode(
@@ -82,7 +82,7 @@ def get_day_of_week_menu(default_value):
                              args=[(0,"Sunday"), (1,"Monday"), (2,"Tuesday"),
                                    (3,"Wednesday"), (4,"Thursday"),
                                    (5,"Friday"), (6,"Saturday")],
-                             value=default_value).render()
+                             value=default_value)
 
 def get_hour_menu(default_value):
     return web.form.Dropdown(name="hour",
@@ -98,7 +98,7 @@ def get_hour_menu(default_value):
                                    (18, '6:00pm'), (19, '7:00pm'),
                                    (20, '8:00pm'), (21, '9:00pm'),
                                    (22, '10:00pm'), (23, '11:00pm')],
-                             value=default_value).render()
+                             value=default_value)
     
 if __name__ == "__main__":
     shamerdb.database_init()

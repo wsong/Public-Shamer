@@ -1,5 +1,4 @@
-$def with (oauth_dialog_url=None, fb_id=None, fb_first_name=None, 
-lastfm_pref=None, lastfm_username=None, dayofweek_menu=None, hour_menu=None)
+$def with (oauth_dialog_url=None, fb_id=None, fb_first_name=None, lastfm_pref=None, lastfm_username=None, dayofweek_menu=None, hour_menu=None)
 
 <html>
 <head>
@@ -30,8 +29,8 @@ $elif fb_first_name:
           <input type="checkbox" name="lastfmcheckbox" value="True" checked/>
       <input type="text" name="lastfmusername" value="$lastfm_username"/> </p>
     <p>Enter what time each week you'd like your beratement to arrive. </p>
-    $dayofweek_menu
-    $hour_menu
+    $:dayofweek_menu.render()
+    $:hour_menu.render()
     <p>Get rid of my personal information, you power-hungry tyrant!
       <input type="checkbox" name="deleteinfo" value="True"/> </p>
     <p><input type="submit" value="Submit" /></p>
