@@ -19,7 +19,7 @@ class index:
     def GET(self):
         i = web.input(code=None)
         code = web.cookies().get("fb_code")
-        if not code:
+        if not code and i.code:
             code = i.code
             web.setcookie("fb_code", i.code)
         if code:
@@ -32,7 +32,9 @@ class index:
                                      user_dict["last_name"],
                                      access_token)
                 return render.index(fb_id=user_dict["id"],
-                                    fb_first_name=user_dict["first_name"])
+                                    fb_first_name=user_dict["first_name"],
+                                    dayofweek_menu=get_day_of_week_menu(0),
+                                    hour_menu=get_hour_menu(0))
             else:
                 user_row = shamerdb.get_user_by_fb_id(user_dict["id"])
                 dayofweek_menu = get_day_of_week_menu(
