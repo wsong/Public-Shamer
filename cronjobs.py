@@ -30,9 +30,9 @@ class CrontabLine:
             self.username = username
             self.service = service
     def __repr__(self):
-        return "* %d * * %d %s %s %s %s" % (self.hour, self.dayofweek,
-                                            self.command, self.fb_id,
-                                            self.username, self.service)
+        return "* %d * * %d %s %s %s %s\n" % (self.hour, self.dayofweek,
+                                              self.command, self.fb_id,
+                                              self.username, self.service)
 
 def add_cron_job(fb_id, day_of_week, hour, username, service):
     if service not in commands:
