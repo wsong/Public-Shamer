@@ -18,8 +18,12 @@ render = web.template.render('templates/')
 class index:
     def GET(self):
         i = web.input(code=None)
-        if i.code:
-            access_token = fbgraph.get_access_token(i.code)
+        code = web.cookies().get("fb_code")
+        if not code:
+            code = i.code
+            web.setcookie("fb_code", i.code)
+        if code:
+            access_token = fbgraph.get_access_token(code)
             user_dict = fbgraph.get_current_user_info(access_token)
             if not shamerdb.get_user_by_fb_id(user_dict["id"]):
                 shamerdb.create_user(user_dict["id"],
@@ -55,6 +59,7 @@ class change_options:
         if not i.fb_id:
             raise web.seeother('/')
         if i.deleteinfo:
+            cronjobs.remove_cron_jobs(i.fb_id)
             shamerdb.delete_user_by_fb_id(i.fb_id)
             raise web.seeother('/')
         d, h = None, None
@@ -71,6 +76,7 @@ class change_options:
         if i.lastfmcheckbox == "True" and i.lastfmusername:
             shamerdb.set_user_last_fm_pref(i.fb_id, True, i.lastfmusername)
             if d and h:
+                cronjobs.remove_cron_jobs(i.fb_id)
                 cronjobs.add_cron_job(i.fb_id, d, h,
                                       i.lastfmusername, "last.fm")
         else:
