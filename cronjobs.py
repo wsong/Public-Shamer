@@ -52,14 +52,18 @@ def add_cron_job(fb_id, day_of_week, hour, username, service):
 def remove_cron_jobs(fb_id):
     if not re.match("^[0-9]*$", fb_id):
         return
-    with open(CRONTAB_FILE, "r+") as f:
+    with open(CRONTAB_FILE, "w+") as f:
         lines = f.readlines()
         final_lines = []
         for l in lines:
-            c_line = CrontabLine(line=l)
+            try:
+                c_line = CrontabLine(line=l)
+            except ValueError:
+                continue
             if c_line.fb_id != fb_id:
                 final_lines.append(l)
-        f.write("".join(lines))
+        f.writelines(final_lines)
+    subprocess.call(["crontab", CRONTAB_FILE])
     
 if __name__ == "__main__":
     # Usage: cronjobs facebook_id username service
