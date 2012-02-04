@@ -8,3 +8,6 @@ FB_CURRENT_USER_URL = "https://graph.facebook.com/me?"
 FB_FEED_URL = "https://graph.facebook.com/feed"
 
 LASTFM_API_KEY = ""
+
+DATABASE_NAME = "/home/ec2-user/shamer.db"
+CRONTAB_FILE = "/home/ec2-user/shamer-crontab"

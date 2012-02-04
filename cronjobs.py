@@ -1,15 +1,13 @@
 #!/usr/bin/python
 
+import constants
 import fbgraph
 import lastfm
 import re
 import subprocess
 import sys
 
-CRONTAB_FILE = "/home/ec2-user/shamer-crontab"
 commands = {"last.fm": "python /home/ec2-user/Public-Shamer/cronjobs.py"}
-
-services = ["last.fm"]
 
 class CrontabLine:
     def __init__(self, line=None, hour=None, dayofweek=None, command=None,
@@ -46,14 +44,14 @@ def add_cron_job(fb_id, day_of_week, hour, username, service):
     line = CrontabLine(hour=hour, dayofweek=day_of_week,
                        command=commands[service], fb_id=fb_id,
                        username=username, service=service)
-    with open(CRONTAB_FILE, "a") as f:
+    with open(constants.CRONTAB_FILE, "a") as f:
         f.write(repr(line))
-    subprocess.call(["crontab", CRONTAB_FILE])
+    subprocess.call(["crontab", constants.CRONTAB_FILE])
 
 def remove_cron_jobs(fb_id):
     if not re.match("^[0-9]*$", fb_id):
         return
-    with open(CRONTAB_FILE, "w+") as f:
+    with open(constants.CRONTAB_FILE, "w+") as f:
         lines = f.readlines()
         final_lines = []
         for l in lines:
@@ -64,7 +62,7 @@ def remove_cron_jobs(fb_id):
             if c_line.fb_id != fb_id:
                 final_lines.append(l)
         f.writelines(final_lines)
-    subprocess.call(["crontab", CRONTAB_FILE])
+    subprocess.call(["crontab", constants.CRONTAB_FILE])
     
 if __name__ == "__main__":
     # Usage: cronjobs facebook_id username service
@@ -74,7 +72,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 4:
         print "Usage: cronjobs facebook_id username service"
         sys.exit(1)
-    if sys.argv[3] not in services:
+    if sys.argv[3] not in commands:
         print "Service " + sys.argv[3] + " not supported."
         sys.exit(1)
     if sys.argv[3] == "last.fm":
