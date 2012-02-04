@@ -1,0 +1,19 @@
+What is this?
+---
+This is a program which scrapes a given API, such as last.fm, which records activities that you want to do better in.  For instance, if you want to listen to more music, this app will look at how much music you've listened to each week.  If you haven't listened to enough, then this app will post on your Facebook wall, as yourself, telling everybody how terrible you are at bettering yourself (or at least how terrible you are at listening to music).  There's no motivation like the threat of public humiliation and beratement.
+
+So you're just gamifying music and stuff, then.
+---
+I hate that word, but it did inspire this project's secondary name "Shamification."
+
+So if you listen to enough music, this will just pat you on the back.  Mental masturbation at its finest.
+---
+I wouldn't call it mental masturbation, but that did inspire this project's tertiary name "Master Berater."
+
+Technical stuff
+---
+This project is built around the web.py Python web framework.  It uses SQLite to store user data and generates dynamic HTML pages using web.py's built-in Templetor templating system.  Users can choose what time each week they want their beratement to arrive; this is achieved by adding a cron job for each user.  Facebook, last.fm, and various other services are interfaced through their usual APIs.  I'm terrible at web development, but I'm especially terrible at writing HTML; therefore, most of the code you see here is probably pretty bad.  If you spot any blatant security holes or anything, I'd greatly appreciate it if you let me know about it at wayne.e.song@gmail.com.
+
+Legal stuff
+---
+I, Wayne Song, hereby release this code into the public domain and release all rights over it.
