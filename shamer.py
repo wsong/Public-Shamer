@@ -79,9 +79,9 @@ class change_options:
                 d = int(i.dayofweek)
                 h = int(i.hour)
                 # Convert to UTC
-                h = (h + 8) % 24
                 if h >= 16:
                     d = (d + 1) % 7
+                h = (h + 8) % 24
             except ValueError:
                 raise web.seeother('/')
             if 0 <= d and d <= 6 and 0 <= h and h <= 23:
