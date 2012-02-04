@@ -45,9 +45,14 @@ class index:
                                     hour_menu=get_hour_menu(0))
             else:
                 user_row = shamerdb.get_user_by_fb_id(user_dict["id"])
-                dayofweek_menu = get_day_of_week_menu(
-                    user_row["Reminder_Time_Day_Of_Week"])
-                hour_menu = get_hour_menu(user_row["Reminder_Time_Hour"])
+                d = user_row["Reminder_Time_Day_Of_Week"]
+                h = user_row["Reminder_Time_Hour"]
+                # Convert to PST
+                if h < 8:
+                    d = (d - 1) % 7
+                h = (h - 8) % 24
+                dayofweek_menu = get_day_of_week_menu(d)
+                hour_menu = get_hour_menu(h)
                 return render.index(fb_id=user_row["Facebook_Id"],
                                     fb_first_name=user_row["First_Name"],
                                     lastfm_pref=user_row["LastFm"],
