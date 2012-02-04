@@ -12,7 +12,7 @@ I wouldn't call it mental masturbation, but that did inspire this project's tert
 
 Technical stuff
 ---
-This project is built around the web.py Python web framework.  It uses SQLite to store user data and generates dynamic HTML pages using web.py's built-in Templetor templating system.  Users can choose what time each week they want their beratement to arrive; this is achieved by adding a cron job for each user.  Facebook, last.fm, and various other services are interfaced through their usual APIs.  I'm terrible at web development, but I'm especially terrible at writing HTML; therefore, most of the code you see here is probably pretty bad.  If you spot any blatant security holes or anything, I'd greatly appreciate it if you let me know about it at wayne.e.song@gmail.com.
+This project is built around the web.py Python web framework.  It uses SQLite to store user data and generates dynamic HTML pages using web.py's built-in Templetor templating system.  Users can choose what time each week they want their beratement to arrive; this is achieved by adding a cron job for each user.  Facebook, last.fm, and various other services are interfaced through their usual APIs.  I'm terrible at web development, and I'm especially terrible at writing HTML; therefore, most of the code you see here is probably pretty bad.  If you spot any blatant security holes or anything, I'd greatly appreciate it if you let me know about it at wayne.e.song@gmail.com.
 
 Legal stuff
 ---
