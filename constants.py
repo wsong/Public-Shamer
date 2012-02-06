@@ -15,3 +15,4 @@ NIKE_PLUS_URL = "http://nikerunning.nike.com/nikeplus/v1/services/app/run_list.j
 
 DATABASE_NAME = "/home/ec2-user/shamer.db"
 CRONTAB_FILE = "/home/ec2-user/shamer-crontab"
+CRONJOB_COMMAND = "python /home/ec2-user/Public-Shamer/cronjobs.py"

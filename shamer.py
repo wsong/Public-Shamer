@@ -57,6 +57,8 @@ class index:
                                     fb_first_name=user_row["First_Name"],
                                     lastfm_pref=user_row["LastFm"],
                                     lastfm_username=user_row["LastFm_Username"],
+                                    nikeplus_pref=user_row["NikePlus"],
+                                    nikeplus_user_id=user_row["NikePlus_User_Id"],
                                     dayofweek_menu=dayofweek_menu,
                                     hour_menu=hour_menu)
         else:
@@ -69,7 +71,8 @@ class index:
 class change_options:
     def POST(self):
         i = web.input(fb_id=None, lastfmcheckbox=None,
-                      lastfmusername=None, dayofweek=None,
+                      lastfmusername=None, nikepluscheckbox=None,
+                      nikeplususerid=None, dayofweek=None,
                       hour=None, deleteinfo=None)
         if not i.fb_id:
             raise web.seeother('/')
@@ -93,14 +96,22 @@ class change_options:
                 shamerdb.set_user_reminder_time(i.fb_id, d, h)
             else:
                 raise web.seeother('/')
+            
+        cronjobs.remove_cron_jobs(i.fb_id)
         if i.lastfmcheckbox == "True" and i.lastfmusername:
-            shamerdb.set_user_last_fm_pref(i.fb_id, True, i.lastfmusername)
+            shamerdb.set_user_lastfm_pref(i.fb_id, True, i.lastfmusername)
             if d and h:
-                cronjobs.remove_cron_jobs(i.fb_id)
                 cronjobs.add_cron_job(i.fb_id, d, h,
                                       i.lastfmusername, "last.fm")
         else:
             shamerdb.set_user_last_fm_pref(i.fb_id, False, "")
+        if i.nikepluscheckbox == "True" and i.nikeplususerid:
+            shamerdb.set_user_nikeplus_pref(i.fb_id, True, i.nikeplususerid)
+            if d and h:
+                cronjobs.add_cron_job(i.fb_id, d, h,
+                                      i.lastfmusername, "nikeplus")
+        else:
+            shamerdb.set_user_nikeplus_pref(i.fb_id, False, "")
         return render.optionsset()
 
 def get_day_of_week_menu(default_value):

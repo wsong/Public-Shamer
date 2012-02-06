@@ -1,4 +1,4 @@
-$def with (oauth_dialog_url=None, fb_id=None, fb_first_name=None, lastfm_pref=None, lastfm_username=None, dayofweek_menu=None, hour_menu=None)
+$def with (oauth_dialog_url=None, fb_id=None, fb_first_name=None, lastfm_pref=None, lastfm_username=None, nikeplus_pref=None, nikeplus_userid=None, dayofweek_menu=None, hour_menu=None)
 
 <html>
 <head>
@@ -32,8 +32,14 @@ $elif fb_first_name:
       $if lastfm_pref:
           <input type="checkbox" name="lastfmcheckbox" value="True" checked/>
       $else:
-          <input type="checkbox" name="lastfmcheckbox" value="True" checked/>
+          <input type="checkbox" name="lastfmcheckbox" value="True" />
       <input type="text" name="lastfmusername" value="$lastfm_username"/> </p>
+    <p>Nike+
+      $if nikeplus_pref:
+          <input type="checkbox" name="nikepluscheckbox" value="True" checked/>
+      $else:
+          <input type="checkbox" name="nikepluscheckbox" value="True" />
+      <input type="text" name="nikeplususerid" value="$nikeplus_userid"/> </p>
     <p>Enter what time each week you'd like your beratement to arrive. All times are in Pacific Standard Time.</p>
     $:dayofweek_menu.render()
     $:hour_menu.render()
