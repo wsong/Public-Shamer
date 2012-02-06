@@ -36,13 +36,13 @@ def get_weekly_run_total(user_id):
 
 def get_very_low_evaluation(distance):
     message_list = [
-        "This week, I ran %d miles; that moving sidewalk I installed is basically paying for itself." % (distance),
+        "This week, I ran %f miles; that moving sidewalk I installed is basically paying for itself." % (distance),
         ]
     return random.choice(message_list)
 
 def get_default_evaluation(distance):
     message_list = [
-        "I ran %d miles this week.  If everyone was like me, we could solve the energy crisis by just running everywhere." % (distance),
+        "I ran %f miles this week.  If everyone was like me, we could solve the energy crisis by just running everywhere." % (distance),
         ]
     return random.choice(message_list)
 
