@@ -58,7 +58,7 @@ class index:
                                     lastfm_pref=user_row["LastFm"],
                                     lastfm_username=user_row["LastFm_Username"],
                                     nikeplus_pref=user_row["NikePlus"],
-                                    nikeplus_user_id=user_row["NikePlus_User_Id"],
+                                    nikeplus_username=user_row["NikePlus_Username"],
                                     dayofweek_menu=dayofweek_menu,
                                     hour_menu=hour_menu)
         else:
@@ -72,7 +72,7 @@ class change_options:
     def POST(self):
         i = web.input(fb_id=None, lastfmcheckbox=None,
                       lastfmusername=None, nikepluscheckbox=None,
-                      nikeplususerid=None, dayofweek=None,
+                      nikeplususername=None, dayofweek=None,
                       hour=None, deleteinfo=None)
         if not i.fb_id:
             raise web.seeother('/')
@@ -105,11 +105,11 @@ class change_options:
                                       i.lastfmusername, "last.fm")
         else:
             shamerdb.set_user_last_fm_pref(i.fb_id, False, "")
-        if i.nikepluscheckbox == "True" and i.nikeplususerid:
-            shamerdb.set_user_nikeplus_pref(i.fb_id, True, i.nikeplususerid)
+        if i.nikepluscheckbox == "True" and i.nikeplususername:
+            shamerdb.set_user_nikeplus_pref(i.fb_id, True, i.nikeplususername)
             if d != None and h != None:
                 cronjobs.add_cron_job(i.fb_id, d, h,
-                                      i.nikeplususerid, "nikeplus")
+                                      i.nikeplususername, "nikeplus")
         else:
             shamerdb.set_user_nikeplus_pref(i.fb_id, False, "")
         return render.optionsset()

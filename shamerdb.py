@@ -9,7 +9,7 @@ def database_init():
     conn = sqlite3.connect(constants.DATABASE_NAME)
     with conn:
         cur = conn.cursor()
-        cur.execute("create table if not exists Users(Id integer primary key, Facebook_Id text, Full_Name text, First_Name text, Last_Name text, LastFm boolean, LastFm_Username text, Reminder_Time_Day_Of_Week int, Reminder_Time_Hour int, Access_Token text, NikePlus boolean, NikePlus_User_Id text)")
+        cur.execute("create table if not exists Users(Id integer primary key, Facebook_Id text, Full_Name text, First_Name text, Last_Name text, LastFm boolean, LastFm_Username text, Reminder_Time_Day_Of_Week int, Reminder_Time_Hour int, Access_Token text, NikePlus boolean, NikePlus_Username text)")
         conn.commit()
 
 def get_user_by_fb_id(fb_id):
@@ -43,11 +43,11 @@ def set_user_lastfm_pref(fb_id, lastfm_pref, lastfm_username):
         cur.execute("update Users set LastFm=?, LastFm_Username=? where Facebook_Id=?", (lastfm_pref, lastfm_username, fb_id))
         conn.commit()
 
-def set_user_nikeplus_pref(fb_id, nikeplus_pref, nikeplus_user_id):
+def set_user_nikeplus_pref(fb_id, nikeplus_pref, nikeplus_username):
     conn = sqlite3.connect(constants.DATABASE_NAME)
     with conn:
         cur = conn.cursor()
-        cur.execute("update Users set NikePlus=?, NikePlus_User_Id=? where Facebook_Id=?", (nikeplus_pref, nikeplus_user_id, fb_id))
+        cur.execute("update Users set NikePlus=?, NikePlus_Username=? where Facebook_Id=?", (nikeplus_pref, nikeplus_username, fb_id))
         conn.commit()
         
 def delete_user_by_fb_id(fb_id):

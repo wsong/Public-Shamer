@@ -2,10 +2,12 @@
 
 import constants
 import datetime
+import httplib
 import random
 import time
 import urllib
 import urllib2
+import urlparse
 from xml.dom import minidom
 
 RETRIES = 5
@@ -18,9 +20,16 @@ def get_xml(u):
             print "Connection to last.fm failed."
         time.sleep(1)
 
+def get_nikeplus_user_id(username):
+    h = httplib.HTTPConnection(constants.NIKE_PLUS_USER_ID_URL)
+    h.request("HEAD", constants.NIKE_PLUS_USER_ID_PATH + username)
+    redirect_url = h.getresponse().getheader("Location")
+    return urlparse.parse_qs(redirect_url)["id"][0]
+        
 # Note that Nike+ (and therefore this function) returns distances in
 # kilometers, not miles
-def get_weekly_run_total(user_id):
+def get_weekly_run_total(username):
+    user_id = get_nikeplus_user_id(username)
     url = constants.NIKE_PLUS_URL + urllib.urlencode({"userID": user_id})
     runs_xml = get_xml(url)
     if runs_xml.getElementsByTagName("status")[0].firstChild.nodeValue == "failure":
