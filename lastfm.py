@@ -3,6 +3,7 @@
 import constants
 import random
 import time
+import urllib
 import urllib2
 from xml.dom import minidom
 
@@ -17,7 +18,9 @@ def get_xml(u):
         time.sleep(1)
 
 def get_lastfm_weekly_playcount(user):
-    url = 'http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=%s&api_key=%s&period=7day' % (user, constants.LASTFM_API_KEY)
+    url = constants.LASTFM_TOP_TRACKS_URL + urllib.urlencode(
+        {"method": "user.gettoptracks",
+         "user": user, "api_key": constants.LASTFM_API_KEY, period:"7day"})
     tracks = get_xml(url).getElementsByTagName("track")
     total = 0
     for node in tracks:

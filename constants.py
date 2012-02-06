@@ -9,5 +9,9 @@ FB_FEED_URL = "https://graph.facebook.com/feed"
 
 LASTFM_API_KEY = ""
 
+LASTFM_TOP_TRACKS_URL = "http://ws.audioscrobbler.com/2.0/?"
+
+NIKE_PLUS_URL = "http://nikerunning.nike.com/nikeplus/v1/services/app/run_list.jsp?"
+
 DATABASE_NAME = "/home/ec2-user/shamer.db"
 CRONTAB_FILE = "/home/ec2-user/shamer-crontab"
