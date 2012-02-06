@@ -43,7 +43,7 @@ def add_cron_job(fb_id, day_of_week, hour, username, service):
     if not re.match("^[0-9a-zA-Z_]*$", username):
         return
     line = CrontabLine(hour=hour, dayofweek=day_of_week,
-                       command=constants.CRNOJOB_COMMAND, fb_id=fb_id,
+                       command=constants.CRONJOB_COMMAND, fb_id=fb_id,
                        username=username, service=service)
     with open(constants.CRONTAB_FILE, "a") as f:
         f.write(repr(line))
