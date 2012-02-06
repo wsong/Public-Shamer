@@ -20,7 +20,7 @@ def get_xml(u):
 def get_lastfm_weekly_playcount(user):
     url = constants.LASTFM_TOP_TRACKS_URL + urllib.urlencode(
         {"method": "user.gettoptracks",
-         "user": user, "api_key": constants.LASTFM_API_KEY, period:"7day"})
+         "user": user, "api_key": constants.LASTFM_API_KEY, "period":"7day"})
     tracks = get_xml(url).getElementsByTagName("track")
     total = 0
     for node in tracks:
