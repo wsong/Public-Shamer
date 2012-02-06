@@ -100,14 +100,14 @@ class change_options:
         cronjobs.remove_cron_jobs(i.fb_id)
         if i.lastfmcheckbox == "True" and i.lastfmusername:
             shamerdb.set_user_lastfm_pref(i.fb_id, True, i.lastfmusername)
-            if d and h:
+            if d != None and h != None:
                 cronjobs.add_cron_job(i.fb_id, d, h,
                                       i.lastfmusername, "last.fm")
         else:
             shamerdb.set_user_last_fm_pref(i.fb_id, False, "")
         if i.nikepluscheckbox == "True" and i.nikeplususerid:
             shamerdb.set_user_nikeplus_pref(i.fb_id, True, i.nikeplususerid)
-            if d and h:
+            if d != None and h != None:
                 cronjobs.add_cron_job(i.fb_id, d, h,
                                       i.nikeplususerid, "nikeplus")
         else:
