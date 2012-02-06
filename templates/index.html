@@ -1,4 +1,4 @@
-$def with (oauth_dialog_url=None, fb_id=None, fb_first_name=None, lastfm_pref=None, lastfm_username=None, nikeplus_pref=None, nikeplus_userid=None, dayofweek_menu=None, hour_menu=None)
+$def with (oauth_dialog_url=None, fb_id=None, fb_first_name=None, lastfm_pref=None, lastfm_username=None, nikeplus_pref=None, nikeplus_user_id=None, dayofweek_menu=None, hour_menu=None)
 
 <html>
 <head>
@@ -27,7 +27,7 @@ $if oauth_dialog_url:
 $elif fb_first_name:
     <p>Hello, $fb_first_name!  Check off the options below to choose your beratement. </p>
     <form name="shamerinput" action="change_options/" method="post">
-    <p>Check off which services you'd like to improve on. Currently, only last.fm is supported.</p>
+    <p>Check off which services you'd like to improve on.</p>
     <p>Last.fm
       $if lastfm_pref:
           <input type="checkbox" name="lastfmcheckbox" value="True" checked/>
@@ -39,7 +39,7 @@ $elif fb_first_name:
           <input type="checkbox" name="nikepluscheckbox" value="True" checked/>
       $else:
           <input type="checkbox" name="nikepluscheckbox" value="True" />
-      <input type="text" name="nikeplususerid" value="$nikeplus_userid"/> </p>
+      <input type="text" name="nikeplususerid" value="$nikeplus_user_id"/> </p>
     <p>Enter what time each week you'd like your beratement to arrive. All times are in Pacific Standard Time.</p>
     $:dayofweek_menu.render()
     $:hour_menu.render()
