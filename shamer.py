@@ -109,7 +109,7 @@ class change_options:
             shamerdb.set_user_nikeplus_pref(i.fb_id, True, i.nikeplususerid)
             if d and h:
                 cronjobs.add_cron_job(i.fb_id, d, h,
-                                      i.lastfmusername, "nikeplus")
+                                      i.nikeplususerid, "nikeplus")
         else:
             shamerdb.set_user_nikeplus_pref(i.fb_id, False, "")
         return render.optionsset()
