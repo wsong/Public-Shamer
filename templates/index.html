@@ -33,12 +33,14 @@ $elif fb_first_name:
           <input type="checkbox" name="lastfmcheckbox" value="True" checked/>
       $else:
           <input type="checkbox" name="lastfmcheckbox" value="True" />
+      Username
       <input type="text" name="lastfmusername" value="$lastfm_username"/> </p>
     <p>Nike+
       $if nikeplus_pref:
           <input type="checkbox" name="nikepluscheckbox" value="True" checked/>
       $else:
           <input type="checkbox" name="nikepluscheckbox" value="True" />
+      User ID
       <input type="text" name="nikeplususerid" value="$nikeplus_user_id"/> </p>
     <p>Enter what time each week you'd like your beratement to arrive. All times are in Pacific Standard Time.</p>
     $:dayofweek_menu.render()
