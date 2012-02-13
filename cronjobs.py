@@ -29,7 +29,7 @@ class CrontabLine:
             self.username = username
             self.service = service
     def __repr__(self):
-        return "* %d * * %d %s %s %s %s\n" % (self.hour, self.dayofweek,
+        return "0 %d * * %d %s %s %s %s\n" % (self.hour, self.dayofweek,
                                               self.command, self.fb_id,
                                               self.username, self.service)
 
